@@ -3,14 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="testpackage.LogIn">
+      <class name="testpackage.LandingPageCases">
         <methods>
+          <include name="VerifySignInButtonVisiblity"/>
           <include name="aftersuite"/>
           <include name="afterMethod"/>
           <include name="beforesuite"/>
-          <include name="VerifyLoginwithcorrectcredentials"/>
         </methods>
-      </class> <!-- testpackage.LogIn -->
+      </class> <!-- testpackage.LandingPageCases -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

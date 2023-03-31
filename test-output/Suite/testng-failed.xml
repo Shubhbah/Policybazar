@@ -12,6 +12,14 @@
           <include name="VerifyMenuBarOnLandingPage"/>
         </methods>
       </class> <!-- testpackage.LandingPageCases -->
+      <class name="testpackage.LogIn">
+        <methods>
+          <include name="aftersuite"/>
+          <include name="afterMethod"/>
+          <include name="beforesuite"/>
+          <include name="VerifyLoginwithcorrectcredentials"/>
+        </methods>
+      </class> <!-- testpackage.LogIn -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

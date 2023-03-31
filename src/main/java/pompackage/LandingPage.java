@@ -2,6 +2,7 @@ package pompackage;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -9,27 +10,31 @@ import utility.StaticWaits;
 
 public class LandingPage {
 	WebDriver driver;
-	@FindBy (xpath="//a[contains(text(),'Sign in')]")
+	
+	@FindBy (xpath="//span[text()='Account & Lists']")
+	private WebElement MovetoSignInButtton;
+	
+	@FindBy (xpath="//div[@id='nav-signin-tooltip']//span[@class='nav-action-inner'][normalize-space()='Sign in']")
 	private WebElement SignInButton;
 	
-	@FindBy (xpath="//a[contains(text(),'Insurance Products111')]")
-	private WebElement InsuranceProducts;
+	@FindBy (xpath="//input[@id='ap_email']")
+	private WebElement EmailOrMobilePhoneNumber;
 	
-	@FindBy (xpath="//a[contains(text(),'Renew Your Policy111')]")
-	private WebElement RenewYourPolicy;
+	@FindBy (xpath="//span[@id='continue']")
+	private WebElement ContinueButton;
 	
-	@FindBy (xpath="//*[@class='ruby-wrapper ']//a[contains(text(),'Claim')]")
-	private WebElement Claim;
+	@FindBy (xpath="//input[@id='ap_password'][@name='password']")
+	private WebElement Password;
 	
 	
-	@FindBy (xpath="//a[contains(text(),'Support')]")
-	private WebElement Support;
+	@FindBy (xpath="//input[@id='signInSubmit'][@type='submit']")
+	private WebElement FinalSignInButton;
 	
-	@FindBy (xpath="//a//span[contains(text(),'Zero Cost Term Insurance')]")
+	/*@FindBy (xpath="//a//span[contains(text(),'Zero Cost Term Insurance')]")
 	private WebElement ZeroCost;
 	
 	@FindBy (xpath="//a//span[contains(text(),'Term Insurance for NRIs')]")
-	private WebElement TIForNRIs;
+	private WebElement TIForNRIs;*/
 	
 	
 	public LandingPage(WebDriver driver)
@@ -41,54 +46,55 @@ public class LandingPage {
 	
 	public boolean VisiblityOfSignInButton()
 	{
-		StaticWaits.elementWait(driver, 20, "//a[contains(text(),'Sign in')]");
-		boolean result =SignInButton.isDisplayed();
+		StaticWaits.elementWait(driver, 20, "//span[text()='Account & Lists']");
+		boolean result =MovetoSignInButtton.isDisplayed();
 		return result;
 	}
 	
-	public boolean AccesiblityOfSignInButton() throws InterruptedException
+	public void MoveToSignInButtonOfLandingPage() throws InterruptedException 
 	{
-		StaticWaits.elementWait(driver, 10, "//a[contains(text(),'Sign in')]");
-		boolean result =SignInButton.isEnabled();
-		
+		driver.navigate().refresh();
 		Thread.sleep(2000);
-		return result;
+		StaticWaits.elementWait(driver, 20, "//span[text()='Account & Lists']");
+		Actions act=new Actions(driver);
+		act.moveToElement(MovetoSignInButtton);
+		
+		System.out.println("MoveTOSignInButton");
+	}
+	public void SignInButtonOfLandingPage() throws InterruptedException
+	{
+	
+		Thread.sleep(2000);
+		StaticWaits.elementWait(driver, 20, "//div[@id='nav-signin-tooltip']//span[@class='nav-action-inner'][normalize-space()='Sign in']");
+		SignInButton.click();
+		System.out.println("SignInButton.click");
+	}
+	public void SendMobileNumber() throws InterruptedException
+	{
+		Thread.sleep(5000);
+		StaticWaits.elementWait(driver, 10, "//input[@id='ap_email']");
+		EmailOrMobilePhoneNumber.sendKeys("919834351007");
+		System.out.println("MobileNumber.sendKeys");
 	}
 	
-	public boolean OptionsOfMenuBar() throws InterruptedException
+	public void ClickOnContinueButton() throws InterruptedException
 	{
-		StaticWaits.elementWait(driver, 10, "//a[contains(text(),'Sign in')]");
-
-//		System.out.println("Clicking to button");
-//		
-//		SignInButton.click();
-//		Thread.sleep(5000);
-//		System.out.println("Clicked to button");
-		StaticWaits.elementWait(driver, 20, "//a[contains(text(),'Insurance Products')]");
-		boolean result1= InsuranceProducts.isDisplayed();
-		boolean result2= RenewYourPolicy.isDisplayed();
-		boolean result3= Claim.isDisplayed();
-		boolean result4= Support.isDisplayed();
-		
-		boolean result = result1 && result2 && result3 && result4;
-		
-		return result;
+		ContinueButton.click();
+		System.out.println("Continue.click");
 	}
 	
-	public boolean OptionsOfTI() throws InterruptedException
+	public void sendPassword()  
 	{
-		StaticWaits.elementWait(driver, 10, "//a[contains(text(),'Sign in')]");
+		StaticWaits.elementWait(driver, 10, "//input[@id='ap_password'][@name='password']");
 
-		System.out.println("Clicking to button");
-		
-		
-		boolean result1= ZeroCost.isDisplayed();
-		boolean result2= TIForNRIs.isDisplayed();
-		
-		
-		boolean result = result1 && result2 ;
-		
-		return result;
+		Password.sendKeys("Sagarjagtap@1");
+		System.out.println("password.sendKeys");
+	}
+	public void FinalClickToSignIn()  
+	{
+
+		FinalSignInButton.click();
+        System.out.println("FinalSignInOnModal.click");
 	}
 	
 }
